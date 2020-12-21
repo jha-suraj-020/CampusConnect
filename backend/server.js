@@ -1,24 +1,36 @@
-// const express = require("express")
-// const dotenv = require("dotenv")
-// const products = require("./data/products")
-
-// using ES6 modules in nodeJS :-
-// add "type": "module" to package.json
 import express from "express"
 import dotenv from "dotenv"
-import products from "./data/products.js"
+import connectDB from "./config/db.js";
+import productRoutes from './Routes/product.js'
+import { notFound, errorHandler } from './middleware/error.js';
 
-const app = express()
+// config
 dotenv.config()
 
-app.get("/api/products", (req, res) => {
-    res.json(products);
+//connect DB
+connectDB()
+
+// express
+const app = express()
+
+
+// middleware - access to any req-res cycle
+app.use((req, res, next) => {
+    console.log(req.originalUrl)
+    next()
 })
 
-app.get("/api/products/:id", (req, res) => {
-    const product = products.find( p => p._id === req.params.id)
-    res.json(product);
-})
+
+// routes
+app.use('/api/products', productRoutes)
+
+
+// fallback for 404 error (using after all routes)
+app.use(notFound)
+
+// express error middleware
+// overloading default error handler as it sends HTML as response
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 app.listen(
