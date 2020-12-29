@@ -1,7 +1,7 @@
 import * as constant from '../constants/productConstants';
 import axios from 'axios';
 
-// thunk middleware empowers action creators:
+// thunk middleware empowers action creators :-
 // allows to return function instead of an action
 // recieves store methods 'dispatch' & 'getStore' as parameters
 // can call api requests & fire dispatch actions based on response
@@ -27,7 +27,7 @@ export const listProducts = () => async (dispatch, getState) => {
     }
 }
 
-export const listProductDeatails = (id) => async (dispatch, getState) => {
+export const listProductDetails = (id) => async (dispatch, getState) => {
     try {
         dispatch({ type: constant.PRODUCT_DETAILS_REQUEST })
 
