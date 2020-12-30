@@ -1,7 +1,8 @@
 import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js";
-import productRoutes from './Routes/product.js'
+import productRoutes from './Routes/productRoutes.js'
+import userRoutes from './Routes/userRoutes.js'
 import { notFound, errorHandler } from './middleware/error.js';
 
 // config
@@ -13,6 +14,8 @@ connectDB()
 // express
 const app = express()
 
+// middleware for req.body to parse 
+app.use(express.json())            // allows to accept json data in the body
 
 // middleware - access to any req-res cycle
 app.use((req, res, next) => {
@@ -23,6 +26,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 
 // fallback for 404 error (using after all routes)
