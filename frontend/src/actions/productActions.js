@@ -27,7 +27,7 @@ export const listProducts = () => async (dispatch, getState) => {
     }
 }
 
-export const listProductDetails = (id) => async (dispatch, getState) => {
+export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: constant.PRODUCT_DETAILS_REQUEST })
 
